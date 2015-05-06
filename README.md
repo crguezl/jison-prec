@@ -17,16 +17,18 @@ la tabla utilizando las siguientes reglas:
 * Un conflicto reduce-reduce se resuelve eligiendo la producción que se listó primero en la especificación de la gramática.
 * Un conflicto shift-reduce se resuelve siempre en favor del shift
 * Las declaraciones de precedencia y asociatividad mediante las
-palabras reservadas %left , %right , %nonassoc se utilizan para
+palabras reservadas `%left` , `%right` , `%nonassoc` se utilizan para
 modificar estos criterios por defecto. 
-* La declaración de tokens mediante la palabra reservada %token no modifica la precedencia.
+* La declaración de tokens mediante la palabra reservada `%token` no modifica la precedencia.
 * Si que lo hacen las declaraciones realizadas usando las palabras left, right y nonassoc.
 
 * Los tokens declarados en la misma línea tienen igual precedencia e igual asociatividad. 
 * La precedencia es mayor cuanto mas abajo su posición en el texto. 
 * La precedencia de una regla  $ A \rightarrow \alpha$ se define como la del terminal mas a la derecha que aparece en $ \alpha$. En el ejemplo, la producción
+
                               expr : expr '+' expr
-tiene la precedencia del token +.
+
+tiene la precedencia del token `+`.
 
 * Para decidir en un conflicto shift-reduce se comparan la precedencia de la regla con la del terminal que va a ser desplazado. 
 
