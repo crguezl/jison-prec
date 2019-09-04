@@ -31,10 +31,9 @@ our $VERSION = '0.02';
 /* Play to change the relative precedence of @ and % and see what happens */
 
 %token NUM = /\d+/
-# %left NUM
+%left '%' 
 %left '@'
 %right '&' 
-# %left '%' 
 
 %tree bypass
 %%
@@ -50,7 +49,7 @@ list
 e : %name NUM
       NUM
   | %name TERNARY
-      e '&' e '%' e %prec '&'
+      e '&' e '%' e
   | %name AT
       e '@' e 
   ;
