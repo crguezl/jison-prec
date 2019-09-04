@@ -30,7 +30,7 @@ modificar estos criterios por defecto.
 
   tiene la precedencia del token `+`.
 
-    - Véase el ejemplo [right.eyp](right.eyp) en la regla 
+    - Véase el ejemplo [right.eyp](right.eyp) para mas detalles. En dicho ejemplo, en la regla 
 
                                 e -> e '&' e '%' e 
 
