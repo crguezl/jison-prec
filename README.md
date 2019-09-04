@@ -30,7 +30,11 @@ modificar estos criterios por defecto.
 
   tiene la precedencia del token `+`.
 
-    - Véase el ejemplo [right.eyp](right.eyp) en la regla *e -> e '&' e '%' e* la precedencia es la del token `%`
+    - Véase el ejemplo [right.eyp](right.eyp) en la regla 
+
+                                e -> e '&' e '%' e 
+
+      la precedencia de la regla es la del token `%` no la del token `&`
 
 * Para decidir en un conflicto shift-reduce se comparan la precedencia de la regla con la del terminal que va a ser desplazado. 
 
