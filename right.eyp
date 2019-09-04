@@ -28,6 +28,8 @@ our $VERSION = '0.02';
 
 %}
 
+/* Play to change the relative precedence of @ and % and see what happens */
+
 %token NUM = /\d+/
 %right '&' 
 %left '@'
