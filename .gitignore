@@ -1,0 +1,8 @@
+*.dot
+*.png
+*.pm
+debuggingtut
+parse-eyapp
+precedencia.js
+*.output
+*.tab.jison
