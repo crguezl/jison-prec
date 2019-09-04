@@ -1,0 +1,79 @@
+%{
+=head1 SYNOPSIS
+
+This example illustrates that the rightmost token in the right side of the production rule
+is the one that decides the priority of the rule.
+
+Compile it with 
+
+  eyapp -C right.eyp 
+
+execute the generated modulino with:
+
+      ./right.pm -noslurp -c '2&3%4@5' -info --margin 2
+
+or:
+      ./right.pm --debug --noslurp -c '2&3%4@5' -info  --margin 2
+
+The result will be the term describing the generated
+Abstract Syntax Tree 
+
+=head1 See also
+
+    http://search.cpan.org/perldoc?Parse::Eyapp::debuggingtut
+
+=cut
+
+our $VERSION = '0.02';
+
+%}
+
+%token NUM = /\d+/
+%right '&' 
+%left '@'
+%left '%'
+
+%tree bypass
+%%
+list
+    : /* empty */
+    | list '\n' {}
+    | $list $e { print $e->str."\n"; 
+                 $e->png(); 
+                 $e; 
+               }
+    ;
+
+e : %name NUM
+      NUM
+  | %name TERNARY
+      e '&' e '%' e
+  | %name AT
+      e '@' e 
+  ;
+
+%%
+
+# We can explicit a lexer if we want:
+
+__PACKAGE__->lexer(
+    sub {
+      my $parser = shift;
+  
+      for (${$parser->input()}) {    # contextualize
+        m{\G(\s*)}gc;
+        $parser->tokenline($1 =~ tr{\n}{});
+  
+        m{\G([0-9]+)}gc                and return ('NUM', $1);
+  
+        m{\G(.)}gc                     and return ($1,    $1);
+  
+        return('',undef);              # EOF
+      }
+    }
+  );
+
+# __PACKAGE__->main('Input (try st. like '2&3%4@5<CR><CTRL-D>): ') unless caller();
+
+1;
+
