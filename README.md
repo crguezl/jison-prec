@@ -1,4 +1,4 @@
-#Precedencia y Asociatividad
+# Precedencia y Asociatividad
 
 Si al construir la tabla LALR, alguna de las entradas de la tabla
 resulta multievaluada, decimos que existe un conflicto. Si una de
@@ -24,11 +24,13 @@ modificar estos criterios por defecto.
 
 * Los tokens declarados en la misma línea tienen igual precedencia e igual asociatividad. 
 * La precedencia es mayor cuanto mas abajo su posición en el texto. 
-* La precedencia de una regla  $ A \rightarrow \alpha$ se define como la del terminal mas a la derecha que aparece en $ \alpha$. En el ejemplo, la producción
+* La precedencia de una regla  $ A \rightarrow \alpha$ se define **como la del terminal mas a la derecha** que aparece en $ \alpha$. En el ejemplo, la producción
 
                               expr : expr '+' expr
 
 tiene la precedencia del token `+`.
+
+  - Véase el ejemplo [right.eyp](right.eyp) en la regla $e: e '&' e '%' e$ la precedencia es la del token `%`
 
 * Para decidir en un conflicto shift-reduce se comparan la precedencia de la regla con la del terminal que va a ser desplazado. 
 
