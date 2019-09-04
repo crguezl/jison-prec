@@ -46,4 +46,8 @@ modificar estos criterios por defecto.
 
 * Por tanto es imposible declarar dos tokens con diferente asociatividad y la misma precedencia.
 
-* Es posible modificar la precedencia *natural* de una regla, calificándola con un token específico. Para ello se escribe a la derecha de la regla `prec token`, donde `token` es un token con la precedencia que deseamos. Vea el uso del token `dummy` en el fichero [Precedencia.eyp](Precedencia.eyp).
+* Es posible modificar la precedencia *natural* de una regla, calificándola con un token específico. Para ello se escribe a la derecha de la regla `prec token`, donde `token` es un token con la precedencia que deseamos. Vea el uso del token `dummy` en el fichero [Precedencia.eyp](Precedencia.eyp). En la regla:
+
+                               e ->  e '@' e %prec dummy
+
+la precedencia es la del token `dummy` no la del token `@`
