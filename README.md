@@ -50,4 +50,4 @@ modificar estos criterios por defecto.
 
                                e ->  e '@' e %prec dummy
 
-la precedencia es la del token `dummy` no la del token `@`
+  la precedencia es la del token `dummy` no la del token `@`
