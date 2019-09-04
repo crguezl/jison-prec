@@ -1,0 +1,82 @@
+%{
+=head1 SYNOPSIS
+
+Be sure Math::Tail in examples/Calculator/lib is reachable
+compile it with 
+
+  eyapp -C Precedencia.eyp 
+
+execute the generated modulino with:
+
+      ./Precedencia.pm -noslurp -c '2@3@4' -info  --margin 2
+
+or:
+      ./Precedencia.pm --debug --noslurp -c '2@3@4' -info  --margin 2
+
+Try also with inputs:
+   
+    4@3@5
+    4@3&5
+    4&3@5
+    4&3&5
+
+The result will be the term describing the generated
+Abstract Syntax Tree 
+
+=head1 See also
+
+    http://search.cpan.org/perldoc?Parse::Eyapp::debuggingtut
+
+=cut
+
+our $VERSION = '0.02';
+
+%}
+
+%token NUM = /\d+/
+%left '@'
+%right '&'  dummy
+
+%tree bypass
+%%
+list
+    : /* empty */
+    | list '\n' {}
+    | $list $e { print $e->str."\n"; 
+                 $e->png(); 
+                 $e; 
+               }
+    ;
+
+e : %name NUM
+      NUM
+  | %name AMPERSAND
+      e '&' e
+  | %name AT
+      e '@' e %prec dummy
+  ;
+
+%%
+
+# We can explicit a lexer if we want:
+
+__PACKAGE__->lexer(
+    sub {
+      my $parser = shift;
+  
+      for (${$parser->input()}) {    # contextualize
+        m{\G(\s*)}gc;
+        $parser->tokenline($1 =~ tr{\n}{});
+  
+        m{\G([0-9]+)}gc                and return ('NUM', $1);
+  
+        m{\G(.)}gc                     and return ($1,    $1);
+  
+        return('',undef);              # EOF
+      }
+    }
+  );
+
+# __PACKAGE__->main('Input (try st. like 2@3&4<CR><CTRL-D>): ') unless caller();
+
+1;
